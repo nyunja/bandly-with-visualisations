@@ -1,0 +1,157 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+@font-face {
+    font-family: 'Lato';
+    font-style: italic;
+    font-weight: 100;
+    src: url(https://fonts.gstatic.com/s/lato/v24/S6u-w4BMUTPHjxsIPx-mPCLQ7A.woff2) format('woff2');
+    unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+:root {
+  --font-family: -apple-system, pretendard;
+  --fs-300: Clamp(0.94rem, calc(0.92rem + 0.08vw));
+  --fs-400: Clamp(0.94rem, calc(0.92rem + 0.07vw));
+  --fs-500: Clamp(0.94rem, calc(0.92rem + 0.06vw));
+  --fs-600: Clamp(0.94rem, calc(0.92rem + 0.05vw));
+  --fs-700: Clamp(0.94rem, calc(0.92rem + 0.04vw));
+  --fs-800: Clamp(0.94rem, calc(0.92rem + 0.03vw));
+  --fs-900: Clamp(0.94rem, calc(0.92rem + 0.02vw));
+
+  --primary-color:#2c3e50;
+  --clr-primary-700:hsl(200, 89%, 15%);
+  --clr-primary-600:hsl(200, 89%, 20%);
+  --clr-primary-500:hsl(200, 89%, 35%);
+  --clr-primary-400:hsl(200, 89%, 55%);
+  --clr-primary-300:hsl(200, 89%, 67%);
+  --clr-primary-200:hsl(200, 89%, 80%);
+
+  --secondary-color:#384849;
+  --clr-secondary-700:hsl(144, 62%, 5%);
+  --clr-secondary-600:hsl(114, 65%, 15%);
+  --clr-secondary-500:hsl(114, 55%, 25%);
+  --clr-secondary-400:hsl(114, 45%, 35%);
+  --clr-secondary-300:hsl(114, 35%, 45%);
+  --clr-secondary-200:hsl(114, 25%, 55%);
+
+  --accent-color: #f39c12;
+  --clr-accent-700:hsl(49, 75%, 54%);
+  --clr-accent-600:hsl(33, 75%, 47%);
+  --clr-accent-500:hsl(33, 75%, 40%);
+  --clr-accent-400:hsl(33, 75%, 35%);
+  --clr-accent-300:hsl(33, 75%, 30%);
+  --clr-accent-200:hsl(33, 75%, 25%);
+
+  --neutral-color: #ecf0f1;
+  --clr-neutral-700:hsl(182, 75%, 35%);
+  --clr-neutral-600:hsl(182, 75%, 45%);
+  --clr-neutral-500:hsl(182, 75%, 55%);
+  --clr-neutral-400:hsl(182, 75%, 65%);
+  --clr-neutral-300:hsl(182, 75%, 75%);
+  --clr-neutral-200:hsl(182, 75%, 85%);
+
+  --text-color:#34495e;
+  --clr-text-700:hsl(194, 51%, 49%);
+  --clr-text-600:hsl(194, 47%, 45%);
+  --clr-text-500:hsl(194, 40%, 40%);
+  --clr-text-400:hsl(194, 30%, 37%);
+  --clr-text-300:hsl(194, 15%, 32%);
+  --clr-text-200:hsl(194, 9%, 27%);
+}
+
+* {
+    margin: 0;
+    padding: 0 0px;
+    box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 100%;
+}
+body {
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  margin: 0;
+  padding: 0;
+  text-size-adjust: var(--fs-500);
+  color: var(--clr-text-200);
+  text-decoration: none;
+  background-color: var(--clr-primary-600);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  z-index: 1000;
+}
+
+header, main, footer {
+    display: block;
+    margin-bottom: 2rem;
+}
+
+header {
+    background-color: var(--clr-primary-500);
+    color: #cfa77a;
+    padding: 1rem 0;
+    position: fixed;
+    border-bottom: 1px solid #e1e4e8;
+    padding: 20px 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+
+.concerts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Space between concert listings */
+    padding: 20px;
+}
+
+.concert {
+    background-color: #ffffff;
+    border: 1px solid #e1e4e8;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.concert:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.concert-info {
+    margin-bottom: 15px;
+}
+
+.concert-info h3 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.concert-info p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.concert-details p {
+    color: #333;
+}
+
+.bands ul {
+    list-style-type: none;
+}
+
+.bands li {
+    margin: 10px 0;
+}
+
+.concert-details {
+    margin: 20px 0;
+}
+
+.concert-details ul {
+    list-style-type: none;
+}
