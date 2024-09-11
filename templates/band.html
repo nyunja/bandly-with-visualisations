@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Band.Artist.Name}}</title>
+    <link rel="stylesheet" href="../static/style/one-band.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a style="margin-right: 20px;" href="/">
+                <div class="logo">
+                    <img src="/static/images/Mic Sticker by lord-sativa.jpeg" alt="logo" class="logo">
+                </div>
+            </a>
+            <h1>Artists</h1>
+            <nav>
+                <a href="/" action="/" method="get" class="cta-button fade-in-up"><i class="fa fa-fw fa-home"></i>Home</a>
+                <a href="/about" action="/about" method="get" class="cta-button fade-in-up"><i class="fa fa-fw fa-info" style="size: small;"></i>About Us</a>
+            </nav>
+        </div>
+        
+    </header><br>
+    <div class="artist-wrapper">
+        <h3 style="color: white;">About {{.Band.Artist.Name}}</h3>
+        <section class="home" id="home">
+            <div class="home_content">
+                <h1>Welcome to the <span>{{.Band.Artist.Name}}</span> Experience</h1>
+                <h3 class="text_animation">Our first Album was produced in {{.Band.Artist.FirstAlbum}}</h3>
+            </div>
+            <div class="home_image">
+                <img src="{{.Band.Artist.Image}}" alt="">
+            </div>
+        </section>
+        <!-- Members -->
+        <div class="content-wrapper">
+            <aside class="sidebar">
+                <div class="members">
+            
+                    <div class="member-container">
+                        <h3>{{.Band.Artist.Name}} Band Members</h3>
+                        {{range $index, $mem := .Band.Artist.Members}}
+                        <div class="list">
+                            <div class="rank"><span>{{$index}}</span></div>
+                            <div class="one_member">
+                                <h4>{{$mem}}</h4>
+                                <!-- <p>Joined the band in {{$.Band.Artist.CreationDate}}</p> -->
+                            </div>
+                        </div>
+                        {{end}}
+                    </div>
+                    
+                </div>
+            </aside>
+            <main class="main-content">
+                <div class="venues">
+                    <div class="member-container venue-container">
+                        <h3>{{.Band.Artist.Name}} Venues and Dates</h3>
+                        {{range $loc, $dates := .Band.Relation.DateLocs}}
+                            {{range $date := $dates}} 
+                                <div class="list v-list">
+                                    <div class="rank v-rank"><span><i class='bx bx-map-pin'></i></span></div>
+                                    <div class= "one_member v-one">
+                                        <h3>City: {{$loc}}</h3>
+                                        <h4>Date: {{$date}}</h4>
+                                       
+                                    </div>
+                                </div>      
+                            {{end}}
+                        {{end}}
+                    </div>
+
+                </div>
+            </main>
+            
+            
+        </div>
+        
+    </div>
+    
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 2024 Groupie Tracker. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

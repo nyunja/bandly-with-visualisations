@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="/script/script.js" defer></script>
+    <link rel="stylesheet" href="../static/style/artist.css">
+    <title>Artists</title>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="/static/images/Mic Sticker by lord-sativa.jpeg" alt="logo" class="logo">
+            </div>
+            <h1>Artists</h1>
+            <nav>
+                <a href="/" action="/" method="get" class="cta-button fade-in-up"><i class="fa fa-fw fa-home"></i>Home</a>
+                <a href="/about" action="/about" method="get" class="cta-button fade-in-up"><i class="fa fa-fw fa-info" style="size: small;"></i>About Us</a>
+            </nav>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Search...">
+                <button type="button" id="search-btn">Search</button>
+                <div id="suggestions" class="suggestions"></div>
+            </div>
+        </div>
+        
+    </header><br>
+    <section class="view">
+        <ul class="cards">
+            {{ range $artist := .Data.Artists }}
+            <li>
+                <a href="/artists/{{$artist.ID}}" class="card">
+                    <img src="{{$artist.Image}}" alt="Band profile picture" class="card-image">
+                    <div class="card-overlay">
+                        <div class="card-details">
+                            <svg class="card-arc" xmlns="https://www.w3.org/2000/svg"><path/></svg>
+                            <img src="{{$artist.Image}}" alt="Band profile image" class="card-thumbnail">
+                            <div class="card-detail-text">
+                                <h3 class="card-title">{{$artist.Name}}</h3>
+                                <span class="card-creation-date">Started in {{$artist.CreationDate}}</span>
+                            </div>
+                        </div>
+                        <p class="card-description">{{$artist.Name}} produced their first album in {{$artist.FirstAlbum}}.</p>
+                    </div>
+                </a>
+            </li>
+            {{end}}
+        </ul>        
+    </section>
+    
+    
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 2024 Groupie Tracker. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,165 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+
+:root {
+
+    --font-family: -apple-system, pretendard;
+    --fs-300: Clamp(0.94rem, calc(0.92rem + 0.08vw));
+    --fs-400: Clamp(0.94rem, calc(0.92rem + 0.07vw));
+    --fs-500: Clamp(0.94rem, calc(0.92rem + 0.06vw));
+    --fs-600: Clamp(0.94rem, calc(0.92rem + 0.05vw));
+    --fs-700: Clamp(0.94rem, calc(0.92rem + 0.04vw));
+    --fs-800: Clamp(0.94rem, calc(0.92rem + 0.03vw));
+    --fs-900: Clamp(0.94rem, calc(0.92rem + 0.02vw));
+  
+    --primary-color:#2c3e50;
+    --clr-primary-700:hsl(200, 89%, 15%);
+    --clr-primary-600:hsl(200, 89%, 20%);
+    --clr-primary-500:hsl(200, 89%, 35%);
+    --clr-primary-400:hsl(200, 89%, 55%);
+    --clr-primary-300:hsl(200, 89%, 67%);
+    --clr-primary-200:hsl(200, 89%, 80%);
+  
+    --secondary-color:#955656;
+    /* --secondary-color:#384849; */
+    --clr-secondary-700:hsl(144, 62%, 5%);
+    --clr-secondary-600:hsl(114, 65%, 15%);
+    --clr-secondary-500:hsl(114, 55%, 25%);
+    --clr-secondary-400:hsl(114, 45%, 35%);
+    --clr-secondary-300:hsl(114, 35%, 45%);
+    --clr-secondary-200:hsl(114, 25%, 55%);
+  
+    --accent-color: #f39c12;
+    --clr-accent-700:hsl(49, 75%, 54%);
+    --clr-accent-600:hsl(33, 75%, 47%);
+    --clr-accent-500:hsl(33, 75%, 40%);
+    --clr-accent-400:hsl(33, 75%, 35%);
+    --clr-accent-300:hsl(33, 75%, 30%);
+    --clr-accent-200:hsl(33, 75%, 25%);
+  
+    --neutral-color: #ecf0f1;
+    --clr-neutral-700:hsl(182, 75%, 35%);
+    --clr-neutral-600:hsl(182, 75%, 45%);
+    --clr-neutral-500:hsl(182, 75%, 55%);
+    --clr-neutral-400:hsl(182, 75%, 65%);
+    --clr-neutral-300:hsl(182, 75%, 75%);
+    --clr-neutral-200:hsl(182, 75%, 85%);
+  
+    --text-color:#34495e;
+    --clr-text-700:hsl(194, 51%, 49%);
+    --clr-text-600:hsl(194, 47%, 45%);
+    --clr-text-500:hsl(194, 40%, 40%);
+    --clr-text-400:hsl(194, 30%, 37%);
+    --clr-text-300:hsl(194, 15%, 32%);
+    --clr-text-200:hsl(194, 9%, 27%);
+
+    
+    --first-color: hsl(82, 60%, 28%);
+    --title-color: hsl(0, 0%, 15%);
+    /* --text-color: hsl(0, 0%, 35%); */
+    --body-color: hsl(0, 0%, 95%);
+    --container-color: hsl(0, 0%, 100%);
+
+    --body-font: "Poppins", sans-serif;
+    --h2-font-size: 1.25rem;
+    --small-font-size: .813rem;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+
+header, main, footer {
+    display: block;
+    margin-bottom: 2rem;
+}
+
+  
+body {
+    font-family: var(--body-font);
+    background: -moz-repeating-linear-gradient(175deg, var(--primary-color), var(--secondary-color));
+    color: 1em solid #e1e4e8;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.wrapper {
+    text-align: center;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    background-color: -moz-repeating-radial-gradient(100deg, var(--accent-color), var(--secondary-color));
+    max-width: 1200px;
+    height: 50%;
+    width: 90%;
+}
+
+footer {
+    position: fixed; 
+    bottom: 0;
+    background-color: var(--primary-color);
+    color: var(--neutral-color);
+    text-align: center;
+    margin-bottom: 0.1rem; 
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    width: 100%; 
+    border-radius: 20px; 
+    padding: 10px 0;
+    padding-bottom: 20px;
+  }
+  .footer-container {
+    display: grid;
+    place-items: center;
+  }
+
+
+
+/* Status code styling */
+.status-code {
+    font-size: 6em;
+    font-weight: bold;
+    margin: 0;
+    color: #e74c3c;
+}
+
+/* Error message styling */
+.status-msg {
+    font-size: 1.5em;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: #bdc3c7;
+}
+
+/* Button styling */
+.btn {
+    background-color: #1abc9c;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 1em;
+    color: #ecf0f1;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+}
+
+.btn:hover {
+    background-color: #16a085;
+}
+
+.btn a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.btn a:hover {
+    text-decoration: underline;
+}

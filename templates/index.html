@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="/script/script.js" defer></script>
+    <link rel="stylesheet" href="../static/style/artist.css">
+    <title>Groupie Tracker</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="/static/images/Mic Sticker by lord-sativa.jpeg" alt="logo" class="logo">
+            </div>
+            <h1>Groupie Tracker</h1>
+            <nav>
+                <a href="/about" action="/about" method="get" class="cta-button fade-in-up"><i class="fa fa-fw fa-info"></i>About Us</a>
+            </nav>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Search ...">
+                <button type="button" id="search-btn">Search</button>
+                <div id="suggestions" class="suggestions"></div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1 class="fade-in-up">Explore music ...</h1>
+            <p class="fade-in-up"></p>
+        </section>
+        <hr>
+
+        <section class="view">
+            <ul class="cards">
+                {{ range $artist := .Data.Artists }}
+                <li class="card-item">
+                    <a href="/artists/{{$artist.ID}}" class="card">
+                        <img src="{{$artist.Image}}" alt="Band profile picture" class="card-image">
+                        <div class="card-overlay">
+                            <div class="card-details">
+                                <svg class="card-arc" xmlns="https://www.w3.org/2000/svg"><path/></svg>
+                                <img src="{{$artist.Image}}" alt="Band profile image" class="card-thumbnail">
+                                <div class="card-detail-text">
+                                    <h3 class="card-title">{{$artist.Name}}</h3>
+                                    <span class="card-creation-date">Started in {{$artist.CreationDate}}</span>
+                                </div>
+                            </div>
+                            <p class="card-description">{{$artist.Name}} produced their first album in {{$artist.FirstAlbum}}.</p>
+                        </div>
+                    </a>
+                </li>
+                {{end}}
+            </ul>        
+        </section>
+        <hr>
+    </main>
+
+    <footer>
+        <div>
+            <p>&copy; 2024 Groupie Tracker. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.getElementById('search-btn').addEventListener('click', function() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const artists = document.querySelectorAll('.card-title');
+            
+            artists.forEach(function(artist) {
+                const card = artist.closest('.card-item');
+                if (artist.textContent.toLowerCase().includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        document.getElementById('search-input').addEventListener('keyup', function() {
+            const query = this.value.toLowerCase();
+            const artists = document.querySelectorAll('.card-title');
+
+            artists.forEach(function(artist) {
+                const card = artist.closest('.card-item');
+                if (artist.textContent.toLowerCase().includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
