@@ -134,7 +134,7 @@ func ArtistDetail(w http.ResponseWriter, r *http.Request) {
 	}
 
 	index := id - 1
-	if id == 0 {
+	if id < 1 || id > 52 {
 		ServeError(w, "Artist not found", http.StatusNotFound)
 		return
 	}
