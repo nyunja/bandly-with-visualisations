@@ -1,6 +1,7 @@
 package functions
 
 import (
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"net/http"
@@ -158,4 +159,63 @@ func ArtistDetail(w http.ResponseWriter, r *http.Request) {
 	}
 
 	tmpl.Execute(w, data)
+}
+
+// func Search(w http.ResponseWriter, r *http.Request) {
+// 	query := strings.ToLower(r.URL.Query().Get("q"))
+
+// 	var results []Artist
+
+// 	for _, artist := range artists {
+// 		if strings.Contains(strings.ToLower(artist.Name), query) {
+// 			results = append(results, artist)
+// 		}
+// 	}
+
+// 	data := map[string]interface{}{
+// 		"Artists": results,
+// 	}
+
+// 	tmpl, err := template.ParseFiles("templates/search.html")
+// 	if err != nil {
+// 		http.Error(w, err.Error(), http.StatusInternalServerError)
+// 		return
+// 	}
+
+// 	err = tmpl.Execute(w, data)
+// 	if err != nil {
+// 		http.Error(w, err.Error(), http.StatusInternalServerError)
+// 	}
+// }
+
+func Search(w http.ResponseWriter, r *http.Request) {
+	query := strings.ToLower(r.URL.Query().Get("q"))
+
+	var results []SearchResult
+
+	for i, artist := range artists {
+		lowerCaseMembers := make([]string, len(artist.Members))
+		for j, member := range artist.Members {
+			lowerCaseMembers[j] = strings.ToLower(member)
+		}
+		if strings.Contains(strings.ToLower(artist.Name), query) ||
+			strings.Contains(strings.Join(lowerCaseMembers, " "), query) ||
+			strings.Contains(strings.Join(locations.Index[i].Location, " "), query) ||
+			strings.Contains(strings.Join(dates.Index[i].Date, " "), query) ||
+			strings.Contains(fmt.Sprintf("%v", relations.Index[i].DateLocs), query) {
+
+			result := SearchResult{
+				ID:        artist.ID,
+				Name:      artist.Name,
+				Members:   artist.Members,
+				Location:  strings.Join(locations.Index[i].Location, ", "),
+				Dates:     strings.Join(dates.Index[i].Date, ", "),
+				Relations: fmt.Sprintf("%v", relations.Index[i].DateLocs),
+			}
+			results = append(results, result)
+		}
+	}
+
+	// Return the search results as JSON
+	json.NewEncoder(w).Encode(results)
 }

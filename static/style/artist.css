@@ -153,6 +153,7 @@ nav a:hover {
     align-items: center;
     margin-left: auto;
     border-radius: 20% 20% 20% 20% auto;
+    position:relative;
 }
 
 .search-container button {
@@ -255,6 +256,17 @@ h2 {
 
 .cards li {
   margin: 20px;
+}
+
+.card-item .original-size{
+  display: block ruby;
+  height: auto;
+  width: 100%;
+}
+
+.original-size{
+  height: 200px;
+  width: 200px;
 }
 
 .card:hover {
@@ -424,14 +436,37 @@ h2 {
 }
 
 #suggestions {
-  max-height: 150px;
-  overflow-y: auto;
   position: absolute;
-  background-color: white;
-  width: 100%;
-  box-shadow: 0px 2px 5px rgba(0,0,0,0.3);
-  overflow-y: auto;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid var(--primary-color);
+    border-radius: 0 0 10px 10px;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    max-height: 200px;
+    overflow-y: auto;
 }
+
+#suggestions a {
+  padding: 10px;
+  text-decoration: none;
+  color: #000;
+  cursor: pointer;
+  margin: 5px 0;
+}
+
+#suggestions a:hover {
+  background-color: #f0f0f0;
+  margin: 5px 0;
+}
+
+#search-input:focus + #suggestions {
+  display: block;
+}
+
 .suggestion-item {
   padding: 8px;
   cursor: pointer;
@@ -478,25 +513,25 @@ footer {
 
 @media (max-width: 430px) {
   .container {
-      padding: 10px; /* Reduce padding */
-      width: 90%; /* Adjust width to fit smaller screens */
+      padding: 10px;
+      width: 90%;
   }
 
   .status-code {
-      font-size: 30px; /* Reduce font size for status code */
+      font-size: 30px;
   }
 
   .status-msg {
-      font-size: 15px; /* Reduce font size for status message */
+      font-size: 15px;
   }
 
   .search-container button  {
-      width: 100%; /* Make button width responsive */
-      padding: 8px 15px; /* Adjust button padding */
-      font-size: 0.9em; /* Adjust button font size */
+      width: 100%;
+      padding: 8px 15px;
+      font-size: 0.9em;
   }
 
   .wrapper {
-      padding: 10px; /* Add padding to the wrapper */
+      padding: 10px;
   }
 }

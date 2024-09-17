@@ -62,6 +62,15 @@ type BandDetails struct {
 	Relation Relation
 }
 
+type SearchResult struct {
+	ID int
+	Name string
+	Members   []string
+	Location string
+	Dates     string
+	Relations string
+}
+
 var (
 	artists   []Artist
 	locations Locations

@@ -80,3 +80,39 @@ document.addEventListener('DOMContentLoaded', document.addEventListener('DOMCont
         }, 300); // Adjust the debounce delay as needed
     });
 }));
+
+document.getElementById('search-btn').addEventListener('click', function() {
+    const query = document.getElementById('search-input').value.toLowerCase();
+    const artists = document.querySelectorAll('.card-item');
+
+    artists.forEach(function(artist) {
+        const name = artist.querySelector('.card-title').textContent.toLowerCase();
+        const locations = artist.querySelector('.card-description').textContent.toLowerCase();
+        const firstAlbum = artist.querySelector('.card-description').textContent.toLowerCase();
+        const creationDate = artist.querySelector('.card-creation-date').textContent.toLowerCase();
+
+        if (name.includes(query) || locations.includes(query) || firstAlbum.includes(query) || creationDate.includes(query)) {
+            artist.style.display = 'block';
+        } else {
+            artist.style.display = 'none';
+        }
+    });
+});
+
+document.getElementById('search-input').addEventListener('keyup', function() {
+    const query = this.value.toLowerCase();
+    const artists = document.querySelectorAll('.card-item');
+
+    artists.forEach(function(artist) {
+        const name = artist.querySelector('.card-title').textContent.toLowerCase();
+        const locations = artist.querySelector('.card-description').textContent.toLowerCase();
+        const firstAlbum = artist.querySelector('.card-description').textContent.toLowerCase();
+        const creationDate = artist.querySelector('.card-creation-date').textContent.toLowerCase();
+
+        if (name.includes(query) || locations.includes(query) || firstAlbum.includes(query) || creationDate.includes(query)) {
+            artist.style.display = 'block';
+        } else {
+            artist.style.display = 'none';
+        }
+    });
+});

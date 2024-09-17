@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="/script/script.js" defer></script>
     <link rel="stylesheet" href="../static/style/artist.css">
     <title>Groupie Tracker</title>
 </head>
+
 <body>
     <header>
         <div class="container">
@@ -17,12 +22,13 @@
             </div>
             <h1>Groupie Tracker</h1>
             <nav>
-                <a href="/about" action="/about" method="get" class="cta-button fade-in-up"><i class="fa fa-fw fa-info"></i>About Us</a>
+                <a href="/about" action="/about" method="get" class="cta-button fade-in-up"><i
+                        class="fa fa-fw fa-info"></i>About Us</a>
             </nav>
             <div class="search-container">
-                <input type="text" id="search-input" placeholder="Search ...">
-                <button type="button" id="search-btn">Search</button>
-                <div id="suggestions" class="suggestions"></div>
+                <input type="text" id="search-input" placeholder="Search ..." autocomplete="off">
+                <div id="suggestions"></div>
+                <button type="button" id="search-btn" onclick="search()">Search</button>
             </div>
         </div>
     </header>
@@ -42,19 +48,22 @@
                         <img src="{{$artist.Image}}" alt="Band profile picture" class="card-image">
                         <div class="card-overlay">
                             <div class="card-details">
-                                <svg class="card-arc" xmlns="https://www.w3.org/2000/svg"><path/></svg>
+                                <svg class="card-arc" xmlns="https://www.w3.org/2000/svg">
+                                    <path />
+                                </svg>
                                 <img src="{{$artist.Image}}" alt="Band profile image" class="card-thumbnail">
                                 <div class="card-detail-text">
                                     <h3 class="card-title">{{$artist.Name}}</h3>
                                     <span class="card-creation-date">Started in {{$artist.CreationDate}}</span>
                                 </div>
                             </div>
-                            <p class="card-description">{{$artist.Name}} produced their first album in {{$artist.FirstAlbum}}.</p>
+                            <p class="card-description">{{$artist.Name}} produced their first album in
+                                {{$artist.FirstAlbum}}.</p>
                         </div>
                     </a>
                 </li>
                 {{end}}
-            </ul>        
+            </ul>
         </section>
         <hr>
     </main>
@@ -64,13 +73,17 @@
             <p>&copy; 2024 Groupie Tracker. All rights reserved.</p>
         </div>
     </footer>
-    
+
     <script>
-        document.getElementById('search-btn').addEventListener('click', function() {
+        function search() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            window.location.href = `/search?q=${query}`;
+        }
+        document.getElementById('search-btn').addEventListener('click', function () {
             const query = document.getElementById('search-input').value.toLowerCase();
             const artists = document.querySelectorAll('.card-title');
-            
-            artists.forEach(function(artist) {
+
+            artists.forEach(function (artist) {
                 const card = artist.closest('.card-item');
                 if (artist.textContent.toLowerCase().includes(query)) {
                     card.style.display = 'block';
@@ -80,18 +93,54 @@
             });
         });
 
-        document.getElementById('search-input').addEventListener('keyup', function() {
+        document.getElementById('search-input').addEventListener('keyup', function () {
             const query = this.value.toLowerCase();
             const artists = document.querySelectorAll('.card-title');
 
-            artists.forEach(function(artist) {
+            artists.forEach(function (artist) {
                 const card = artist.closest('.card-item');
                 if (artist.textContent.toLowerCase().includes(query)) {
                     card.style.display = 'block';
+                    card.classList.add('original-size');
                 } else {
                     card.style.display = 'none';
+                    card.classList.remove('original-size');
                 }
             });
+        });
+
+        document.getElementById('search-input').addEventListener('input', async () => {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const response = await fetch(`/search?q=${query}`);
+            const results = await response.json();
+
+            const suggestionsBox = document.getElementById('suggestions');
+
+            if (query === '') {
+                suggestionsBox.innerHTML = '';
+            } else {
+
+                suggestionsBox.innerHTML = '';
+
+                results.forEach(result => {
+                    const suggestion = document.createElement('a');
+                    suggestion.href = `/artists/${result.ID}`;
+                    suggestion.addEventListener('click', function (){
+                        window.location.href =`/artists/${result.ID}`;
+                    });
+                    const trimmedName = result.Name.replace(/[-_/]/g, ' ');
+                    const trimmedMembers = result.Members.join('<br>');
+                    const trimmedLocation = result.Location.replace(/[-/]/g, ',').replace(/_/g, ' ').split(',').map(location => location.trim().charAt(0).toUpperCase() + location.trim().slice(1)).join('<br>');
+                    suggestion.innerHTML = `<strong>${trimmedName}</strong><br>${trimmedMembers}<br>${trimmedLocation}`;
+                    suggestionsBox.appendChild(suggestion);
+                });
+            }
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!event.target.matches('#search')) {
+                suggestions.innerHTML = '';
+            }
         });
     </script>
 </body>
