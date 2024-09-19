@@ -43,7 +43,7 @@
         <section class="view">
             <ul class="cards">
                 {{ range $artist := .Data.Artists }}
-                <li class="card-item">
+                <li class="card-item .original-size">
                     <a href="/artists/{{$artist.ID}}" class="card">
                         <img src="{{$artist.Image}}" alt="Band profile picture" class="card-image">
                         <div class="card-overlay">
