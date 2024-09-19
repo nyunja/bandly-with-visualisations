@@ -254,82 +254,27 @@ h2 {
   }
 }
 
-.cards li {
-  margin: 20px;
-}
-
-.card-item .original-size{
-  display: block ruby;
-  height: auto;
-  width: 100%;
-}
-
-.original-size{
-  display: block ruby;
-  padding-right: 20px;
-  margin: 20px;
-}
-
-.card:hover {
-  transform: scale(1.05);
-}
-
-.card-image {
-  width: 100%;
-  height: auto;
-}
-
-.card-details {
+/* .card-details {
   padding: 15px;
-}
+} */
 
-.card-title {
+/* .card-title {
   font-size: 18px;
   margin: 10px 0;
   color: #333;
-}
+} */
 
-.card-creation-date {
+/* .card-creation-date {
   color: #777;
   font-size: 14px;
-}
+} */
 
-.card-description {
+/* .card-description {
   padding: 15px;
   font-size: 14px;
   color: #555;
-}
+} */
 
-.buttons {
-  display: flex;
-  justify-content: space-around;
-  margin: 15px 0;
-}
-
-.buttons .btn {
-  background-color: #007BFF;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 12px;
-  font-size: 14px;
-  color: #fff;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.buttons .btn:hover {
-  background-color: #0056b3;
-}
-
-.buttons .btn a {
-  color: #fff;
-  text-decoration: none;
-  display: block;
-}
-
-.buttons .btn:active {
-  background-color: #004494;
-}
 
 .cards {
   display: grid;
@@ -343,20 +288,28 @@ h2 {
 }
 
 .card {
-  transition: transform 0.7s ease;
-  animation: appear 1s linear;
-  animation-timeline: view();
-  animation-range: entry 0% cover 40%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   position: relative;
   display: block;
+  max-width: 400px;
   height: 100%;
   text-align: center;
   border-radius: calc(40*1px);
   overflow: hidden;
   text-decoration: none;
+  transition: transform 0.7s ease;
+  animation: appear 1s linear;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
 }
 
+.cards li {
+  margin: 20px;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
 .card-image {
   width: 100%;
   height: auto;
@@ -474,6 +427,37 @@ h2 {
 }
 .suggestion-item:hover {
   background-color: #f0f0f0;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  margin: 15px 0;
+}
+
+.buttons .btn {
+  background-color: #007BFF;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buttons .btn:hover {
+  background-color: #0056b3;
+}
+
+.buttons .btn a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+}
+
+.buttons .btn:active {
+  background-color: #004494;
 }
 
 
