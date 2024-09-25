@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="/script/script.js" defer></script>
+    <!-- <script src="/script/script.js" defer></script> -->
     <link rel="stylesheet" href="../static/style/artist.css">
     <title>Groupie Tracker</title>
 </head>
@@ -75,10 +75,10 @@
     </footer>
 
     <script>
-        function search() {
-            const query = document.getElementById('search-input').value.toLowerCase();
-            window.location.href = `/search?q=${query}`;
-        }
+        // function search() {
+        //     const query = document.getElementById('search-input').value.toLowerCase();
+        //     window.location.href = `/search?q=${query}`;
+        // }
         document.getElementById('search-btn').addEventListener('click', function () {
             const query = document.getElementById('search-input').value.toLowerCase();
             const artists = document.querySelectorAll('.card-title');
@@ -96,7 +96,6 @@
         document.getElementById('search-input').addEventListener('keyup', function () {
             const query = this.value.toLowerCase();
             const artists = document.querySelectorAll('.card-title');
-
             artists.forEach(function (artist) {
                 const card = artist.closest('.card-item');
                 if (artist.textContent.toLowerCase().includes(query)) {
@@ -123,15 +122,17 @@
                 suggestionsBox.innerHTML = '';
 
                 results.forEach(result => {
+                    console.log(results)
                     const suggestion = document.createElement('a');
                     suggestion.href = `/artists/${result.ID}`;
                     suggestion.addEventListener('click', function (){
                         window.location.href =`/artists/${result.ID}`;
                     });
                     const trimmedName = result.Name.replace(/[-_/]/g, ' ');
-                    const trimmedMembers = result.Members.join('<br>');
-                    const trimmedLocation = result.Location.replace(/[-/]/g, ',').replace(/_/g, ' ').split(',').map(location => location.trim().charAt(0).toUpperCase() + location.trim().slice(1)).join('<br>');
-                    suggestion.innerHTML = `<strong>${trimmedName}</strong><br>${trimmedMembers}<br>${trimmedLocation}`;
+                    // const trimmedMembers = result.Members.join('<br>');
+                    // const trimmedLocation = result.Location.replace(/[-/]/g, ',').replace(/_/g, ' ').split(',').map(location => location.trim().charAt(0).toUpperCase() + location.trim().slice(1)).join('<br>');
+                    suggestion.innerHTML = `<strong>${trimmedName}</strong><br>`;
+                    // suggestion.innerHTML = `<strong>${trimmedName}</strong><br>${trimmedMembers}<br>${trimmedLocation}`;
                     suggestionsBox.appendChild(suggestion);
                 });
             }
