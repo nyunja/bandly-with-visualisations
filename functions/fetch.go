@@ -64,13 +64,7 @@ type BandDetails struct {
 
 type SearchResult struct {
 	ID int
-	Name string
-	Members   []string
-	FirstAlbum string
-	CreationDate int
-	Location string
-	Dates     string
-	Relations string
+	Match string
 }
 
 var (
