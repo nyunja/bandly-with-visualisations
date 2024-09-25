@@ -193,27 +193,40 @@ func Search(w http.ResponseWriter, r *http.Request) {
 
 	var results []SearchResult
 
-	for i, artist := range artists {
+	for _, artist := range artists {
 		lowerCaseMembers := make([]string, len(artist.Members))
 		for j, member := range artist.Members {
 			lowerCaseMembers[j] = strings.ToLower(member)
 		}
-		if strings.Contains(strings.ToLower(artist.Name), query) ||
-			strings.Contains(strings.Join(lowerCaseMembers, " "), query) ||
-			strings.Contains(strings.Join(locations.Index[i].Location, " "), query) ||
-			strings.Contains(strings.Join(dates.Index[i].Date, " "), query) ||
-			strings.Contains(fmt.Sprintf("%v", relations.Index[i].DateLocs), query) {
-
-			result := SearchResult{
-				ID:        artist.ID,
-				Name:      artist.Name,
-				Members:   artist.Members,
-				Location:  strings.Join(locations.Index[i].Location, ", "),
-				Dates:     strings.Join(dates.Index[i].Date, ", "),
-				Relations: fmt.Sprintf("%v", relations.Index[i].DateLocs),
-			}
-			results = append(results, result)
+		result := SearchResult{}
+		if strings.Contains(strings.ToLower(artist.Name), query) {
+			result.ID = artist.ID
+			result.Name = artist.Name
 		}
+		// if strings.Contains(strings.ToLower(strconv.Itoa(artist.CreationDate)), query) ||
+		// strings.Contains(strings.ToLower(artist.FirstAlbum), query) ||
+		// 	strings.Contains(strings.Join(lowerCaseMembers, " "), query) ||
+		// 	strings.Contains(strings.Join(locations.Index[i].Location, " "), query) ||
+		// 	strings.Contains(strings.Join(dates.Index[i].Date, " "), query) ||
+		// 	strings.Contains(fmt.Sprintf("%v", relations.Index[i].DateLocs), query) {
+
+		// 	result := SearchResult{
+		// 		ID:        artist.ID,
+		// 		Name:      artist.Name,
+		// 		Members:   artist.Members,
+		// 		FirstAlbum: artist.FirstAlbum,
+		// 		CreationDate: artist.CreationDate,
+		// 		Location:  strings.Join(locations.Index[i].Location, ", "),
+		// 		Dates:     strings.Join(dates.Index[i].Date, ", "),
+		// 		Relations: fmt.Sprintf("%v", relations.Index[i].DateLocs),
+		// 	}
+		// 	results = append(results, result)
+		// }
+		if result.ID > 0 {
+			results = append(results, result)
+			
+		}
+
 	}
 
 	// Return the search results as JSON
