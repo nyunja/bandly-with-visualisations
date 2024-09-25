@@ -292,7 +292,7 @@ h2 {
   position: relative;
   display: block;
   max-width: 400px;
-  min-height: 200px;
+  min-height: 350px;
   /* height: 100%; */
   text-align: center;
   border-radius: calc(40*1px);
