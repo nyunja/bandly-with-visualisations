@@ -128,7 +128,7 @@
                     suggestion.addEventListener('click', function (){
                         window.location.href =`/artists/${result.ID}`;
                     });
-                    const trimmedName = result.Name.replace(/[-_/]/g, ' ');
+                    const trimmedName = result.Match;
                     // const trimmedMembers = result.Members.join('<br>');
                     // const trimmedLocation = result.Location.replace(/[-/]/g, ',').replace(/_/g, ' ').split(',').map(location => location.trim().charAt(0).toUpperCase() + location.trim().slice(1)).join('<br>');
                     suggestion.innerHTML = `<strong>${trimmedName}</strong><br>`;
