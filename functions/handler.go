@@ -201,6 +201,7 @@ func Search(w http.ResponseWriter, r *http.Request) {
 		result := SearchResult{}
 		if strings.Contains(strings.ToLower(artist.Name), query) {
 			result.ID = artist.ID
+			result.Name = artist.Name
 			result.Match = artist.Name + " - artist/band"
 			if result.ID > 0 {
 				results = append(results, result)
@@ -209,6 +210,7 @@ func Search(w http.ResponseWriter, r *http.Request) {
 		}
 		if strings.Contains(strings.ToLower(strconv.Itoa(artist.CreationDate)), query) {
 			result.ID = artist.ID
+			result.Name = artist.Name
 			result.Match = strconv.Itoa(artist.CreationDate) + " - " + artist.Name + "(Creation Date)"
 			if result.ID > 0 {
 				results = append(results, result)
@@ -217,6 +219,7 @@ func Search(w http.ResponseWriter, r *http.Request) {
 		}
 		if strings.Contains(strings.ToLower(artist.FirstAlbum), query) {
 			result.ID = artist.ID
+			result.Name = artist.Name
 			result.Match = artist.FirstAlbum + " - " + artist.Name + "(First Album)"
 			if result.ID > 0 {
 				results = append(results, result)
@@ -226,6 +229,7 @@ func Search(w http.ResponseWriter, r *http.Request) {
 		for i, member := range lowerCaseMembers {
 			if strings.Contains(member, query) {
 				result.ID = artist.ID
+				result.Name = artist.Name
 				result.Match = artist.Members[i] + " - member"
 				if result.ID > 0 {
 					results = append(results, result)
@@ -236,6 +240,7 @@ func Search(w http.ResponseWriter, r *http.Request) {
 		for _, location := range locations.Index[j].Location {
 			if strings.Contains(location, query) {
 				result.ID = artist.ID
+				result.Name = artist.Name
 				result.Match = location+ " - " + artist.Name + "(Location)"
 				if result.ID > 0 {
 					results = append(results, result)

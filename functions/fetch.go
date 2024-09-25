@@ -64,6 +64,7 @@ type BandDetails struct {
 
 type SearchResult struct {
 	ID int
+	Name string
 	Match string
 }
 
