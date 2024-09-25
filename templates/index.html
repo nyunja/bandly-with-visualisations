@@ -93,23 +93,24 @@
             });
         });
 
-        document.getElementById('search-input').addEventListener('keyup', function () {
-            const query = this.value.toLowerCase();
-            const artists = document.querySelectorAll('.card-title');
-            artists.forEach(function (artist) {
-                const card = artist.closest('.card-item');
-                if (artist.textContent.toLowerCase().includes(query)) {
-                    card.style.display = 'block';
-                    card.classList.add('original-size');
-                } else {
-                    card.style.display = 'none';
-                    card.classList.remove('original-size');
-                }
-            });
-        });
+        // document.getElementById('search-input').addEventListener('keyup', function () {
+        //     const query = this.value.toLowerCase();
+        //     const artists = document.querySelectorAll('.card-title');
+        //     artists.forEach(function (artist) {
+        //         const card = artist.closest('.card-item');
+        //         if (artist.textContent.toLowerCase().includes(query)) {
+        //             card.style.display = 'block';
+        //             card.classList.add('original-size');
+        //         } else {
+        //             card.style.display = 'none';
+        //             card.classList.remove('original-size');
+        //         }
+        //     });
+        // });
 
         document.getElementById('search-input').addEventListener('input', async () => {
             const query = document.getElementById('search-input').value.toLowerCase();
+            const artists = document.querySelectorAll('.card-title');
             const response = await fetch(`/search?q=${query}`);
             const results = await response.json();
 
@@ -117,16 +118,33 @@
 
             if (query === '') {
                 suggestionsBox.innerHTML = '';
+                artists.forEach(artist => {
+                    const card = artist.closest('.card-item');
+                    card.style.display = 'block';
+                    card.classList.add('original-size')
+                });
             } else {
 
                 suggestionsBox.innerHTML = '';
+                const resultNames = results.map(result => result.Name.toLowerCase());
 
+                artists.forEach(artist => {
+                    const card = artist.closest('.card-item');
+                    const artistName = artist.textContent.toLowerCase();
+                    if (resultNames.includes(artistName)) {
+                        card.style.display = 'block'; // Show the matching artist
+                        card.classList.add('original-size');
+                    } else {
+                        card.style.display = 'none'; // Hide the non-matching artist
+                        card.classList.remove('original-size');
+                    }
+                });
                 results.forEach(result => {
-                    console.log(results)
+
                     const suggestion = document.createElement('a');
                     suggestion.href = `/artists/${result.ID}`;
-                    suggestion.addEventListener('click', function (){
-                        window.location.href =`/artists/${result.ID}`;
+                    suggestion.addEventListener('click', function () {
+                        window.location.href = `/artists/${result.ID}`;
                     });
                     const trimmedName = result.Match;
                     // const trimmedMembers = result.Members.join('<br>');
@@ -145,4 +163,5 @@
         });
     </script>
 </body>
+
 </html>
