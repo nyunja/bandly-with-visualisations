@@ -193,7 +193,7 @@ func Search(w http.ResponseWriter, r *http.Request) {
 
 	var results []SearchResult
 
-	for _, artist := range artists {
+	for j, artist := range artists {
 		lowerCaseMembers := make([]string, len(artist.Members))
 		for j, member := range artist.Members {
 			lowerCaseMembers[j] = strings.ToLower(member)
@@ -201,10 +201,48 @@ func Search(w http.ResponseWriter, r *http.Request) {
 		result := SearchResult{}
 		if strings.Contains(strings.ToLower(artist.Name), query) {
 			result.ID = artist.ID
-			result.Name = artist.Name
+			result.Match = artist.Name + " - artist/band"
+			if result.ID > 0 {
+				results = append(results, result)
+			}
+			result = SearchResult{}
 		}
-		// if strings.Contains(strings.ToLower(strconv.Itoa(artist.CreationDate)), query) ||
-		// strings.Contains(strings.ToLower(artist.FirstAlbum), query) ||
+		if strings.Contains(strings.ToLower(strconv.Itoa(artist.CreationDate)), query) {
+			result.ID = artist.ID
+			result.Match = strconv.Itoa(artist.CreationDate) + " - " + artist.Name + "(Creation Date)"
+			if result.ID > 0 {
+				results = append(results, result)
+			}
+			result = SearchResult{}
+		}
+		if strings.Contains(strings.ToLower(artist.FirstAlbum), query) {
+			result.ID = artist.ID
+			result.Match = artist.FirstAlbum + " - " + artist.Name + "(First Album)"
+			if result.ID > 0 {
+				results = append(results, result)
+			}
+			result = SearchResult{}
+		}
+		for i, member := range lowerCaseMembers {
+			if strings.Contains(member, query) {
+				result.ID = artist.ID
+				result.Match = artist.Members[i] + " - member"
+				if result.ID > 0 {
+					results = append(results, result)
+				}
+				result = SearchResult{}
+			}
+		}
+		for _, location := range locations.Index[j].Location {
+			if strings.Contains(location, query) {
+				result.ID = artist.ID
+				result.Match = location+ " - " + artist.Name + "(Location)"
+				if result.ID > 0 {
+					results = append(results, result)
+				}
+				result = SearchResult{}
+			}
+		}
 		// 	strings.Contains(strings.Join(lowerCaseMembers, " "), query) ||
 		// 	strings.Contains(strings.Join(locations.Index[i].Location, " "), query) ||
 		// 	strings.Contains(strings.Join(dates.Index[i].Date, " "), query) ||
@@ -222,10 +260,7 @@ func Search(w http.ResponseWriter, r *http.Request) {
 		// 	}
 		// 	results = append(results, result)
 		// }
-		if result.ID > 0 {
-			results = append(results, result)
-			
-		}
+		
 
 	}
 
