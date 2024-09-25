@@ -292,7 +292,8 @@ h2 {
   position: relative;
   display: block;
   max-width: 400px;
-  height: 100%;
+  min-height: 200px;
+  /* height: 100%; */
   text-align: center;
   border-radius: calc(40*1px);
   overflow: hidden;
@@ -396,7 +397,7 @@ h2 {
     width: 100%;
     background-color: #fff;
     border: 1px solid var(--primary-color);
-    border-radius: 0 0 10px 10px;
+    border-radius: 10px 10px 10px 10px;
     z-index: 1;
     display: flex;
     flex-direction: column;
@@ -417,17 +418,17 @@ h2 {
   margin: 5px 0;
 }
 
-#search-input:focus + #suggestions {
+/* #search-input:focus + #suggestions {
   display: block;
-}
+} */
 
-.suggestion-item {
+/* .suggestion-item {
   padding: 8px;
   cursor: pointer;
 }
 .suggestion-item:hover {
   background-color: #f0f0f0;
-}
+} */
 
 .buttons {
   display: flex;
