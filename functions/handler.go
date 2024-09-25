@@ -270,5 +270,6 @@ func Search(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Return the search results as JSON
+	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(results)
 }
