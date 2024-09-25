@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/static/style/about.css">
+    <title>About Us</title>
+</head>
+<body>
+  <body>
+    <header>
+        <div class="header-container">
+          <a style="margin-right: 20px;" href="/">
+              <div class="logo">
+                  <img src="/static/images/Mic Sticker by lord-sativa.jpeg" alt="logo" class="logo">
+              </div>
+          </a>
+            <h1>About Us</h1>
+            <nav>
+                <a href="/" action="/" method="get" class="cta-button fade-in-up"><i class="fa fa-fw fa-home"></i>Home</a>
+                <!-- <a href="/artists" action="/artists" method="get" class="cta-button fade-in-up"><i class="fa fa-fw fa-headset"></i>Artists</a> -->
+                <!-- <a href="/concerts" action="/concerts" method="get" class="cta-button fade-in-up"><i class="fa fa-fw fa-microphone"></i>Concerts</a> -->
+            </nav>
+        </div>
+        
+    </header>
+    <main class="view">
+      <div class="container">
+        <div class="card__container">
+          <article id="cynthia" class="card__article">
+            <img src="/static/images/cache_m_IMG_6933.jpg" alt="image" class="card__img">
+            <div class="card__data">
+              <span class="card__description">Cynthia</span>
+              <h2 class="card__title">Full Stack Developer</h2>
+              <a href="#cynthia-details" class="card__button">Read More</a>
+            </div>
+          </article>
+    
+          <article id="john-paul" class="card__article">
+            <img src="/static/images/cache_m_IMG_6931.jpg" alt="image" class="card__img">
+            <div class="card__data">
+              <span class="card__description">John Paul</span>
+              <h2 class="card__title">Backend Developer</h2>
+              <a href="#john-paul-details" class="card__button">Read More</a>
+            </div>
+          </article>
+    
+          <article id="joel" class="card__article">
+            <img src="/static/images/cache_m_IMG_7022.jpg" alt="image" class="card__img">
+            <div class="card__data">
+              <span class="card__description">Joel</span>
+              <h2 class="card__title">Frontend Nation</h2>
+              <a href="#joel-details" class="card__button">Read More</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </main>
+    
+    <section class="persons">
+      <div id="cynthia-details" class="about-card">
+        <!-- Cynthia's detailed info here -->
+        <h3>Cynthia</h3>
+        <p>Cynthia is an apprentice software developer with a knack for creating engaging web applications.</p>
+        <p>Her UI/UX design skills in creating intuitive and visually appealing user experiences are unmatched.</p>
+        <p>Her expertise ensures that our website is not only functional but also user-friendly.</p>
+      </div>
+      <div id="cynthia-details-social" class="social-media-card">
+        <h3>Social Media</h3>
+        <ul>
+            <li><a href="https://twitter.com/cynthia" target="_blank">Twitter</a></li>
+            <li><a href="https://linkedin.com/in/cynthia" target="_blank">LinkedIn</a></li>
+            <li><a href="https://github.com/cynthia" target="_blank">GitHub</a></li>
+        </ul>
+      </div>
+    
+      <div id="john-paul-details" class="about-card">
+        <!-- John Paul's detailed info here -->
+        <h3>John Paul</h3>
+        <p>John Paul is an apprentice software developer whose backend skills in building scalable and efficient server-side solutions.</p>
+        <p>His backend development skills in building scalable and efficient server-side solutions are unmatched.</p>
+        <p>His skills ensures a smooth performance and reliable browsing experiences.</p>
+      </div>
+      <div id="john-paul-details-social" class="social-media-card">
+        <h3>Social Media</h3>
+        <ul>
+            <li><a href="https://twitter.com/johnpaul" target="_blank">Twitter</a></li>
+            <li><a href="https://linkedin.com/in/johnpaul" target="_blank">LinkedIn</a></li>
+            <li><a href="https://github.com/JohnPaul" target="_blank">GitHub</a></li>
+        </ul>
+      </div>
+    
+      <div id="joel-details" class="about-card">
+        <!-- Joel's detailed info here -->
+        <h3>Joel</h3>
+        <p>Joel is an apprentice software developer with expertise in frontend development and a passion for clean design.</p>
+        <p>His enthusiasm for creating engaging web applications has been incorporated into this website; from visuals to smoothness, all-round engagement to unfathomable user experience.</p>
+        <p>His expertise in frontend development and passion for clean design have been instrumental in shaping this project.</p>
+      </div>
+      <div id="joel-details-social" class="social-media-card">
+        <h3>Social Media</h3>
+        <ul>
+            <li><a href="https://twitter.com/joel" target="_blank">Twitter</a></li>
+            <li><a href="https://linkedin.com/in/joelamos" target="_blank">LinkedIn</a></li>
+            <li><a href="https://github.com/Murzuqisah" target="_blank">GitHub</a></li>
+        </ul>
+      </div>
+    </section>
+    
+    <footer>
+      <div>
+          <p>&copy; 2024 Groupie Tracker. All rights reserved.</p>
+      </div>
+  </footer>
+</body>
+
+</html>
+<script>
+document.querySelectorAll('.card__button').forEach(button => {
+    button.addEventListener('click', function(event) {
+        event.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetAboutCard = document.getElementById(targetId);
+        const targetSocialMediaCard = document.getElementById(targetId + '-social');
+
+        // Hide all about-cards and social-media-cards
+        document.querySelectorAll('.about-card, .social-media-card').forEach(card => {
+            card.style.display = 'none';
+        });
+
+        // Show the target about-card and social-media-card
+        if (targetAboutCard) {
+            targetAboutCard.style.display = 'block';
+            targetAboutCard.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        if (targetSocialMediaCard) {
+            targetSocialMediaCard.style.display = 'block';
+        }
+    });
+});
+
+</script>
