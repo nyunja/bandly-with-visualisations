@@ -43,7 +43,7 @@
                         <h3>{{.Band.Artist.Name}} Band Members</h3>
                         {{range $index, $mem := .Band.Artist.Members}}
                         <div class="list">
-                            <div class="rank"><span>{{$index}}</span></div>
+                            <div class="rank"><span><i class='bx bxs-face'></i></span></div>
                             <div class="one_member">
                                 <h4>{{$mem}}</h4>
                                 <!-- <p>Joined the band in {{$.Band.Artist.CreationDate}}</p> -->
