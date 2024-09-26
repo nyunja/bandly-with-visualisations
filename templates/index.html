@@ -161,6 +161,15 @@
                 suggestions.innerHTML = '';
             }
         });
+
+        // page navigation using buttons(on up/down keystrokes)
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowUp') {
+                window.scrollBy(0, -100); // scrolls by 100 pixels
+            } else if (event.key === 'ArrowDown') {
+                window.scrollBy(0, 100); // scrolls by 100 pixels
+            }
+        });
     </script>
 </body>
 
