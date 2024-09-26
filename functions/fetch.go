@@ -58,7 +58,7 @@ type Data struct {
 type BandDetails struct {
 	Artist   Artist
 	Location Location
-	Dates Date
+	Dates    Date
 	Relation Relation
 }
 
