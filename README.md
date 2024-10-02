@@ -28,7 +28,7 @@ To build and run this project, the requirements include:
 - To get access to the program, you need to clone the repository from Gitea.
 
 ```bash
-    git clone https://learn.zone01kisumu.ke/git/coketch/groupie-tracker.git
+    git clone https://learn.zone01kisumu.ke/git/jamos/groupie-trackersearchbar.git
 ```
 
 ### Switch to the main directory
@@ -36,7 +36,7 @@ To build and run this project, the requirements include:
 - Switch to the directory containing the main.go file.
 
 ```bash
-    cd groupie-tracker/
+    cd groupie-tracker-search-bar/
 ```
 
 ### Running the project
@@ -56,7 +56,7 @@ For example:
 
 Once the server starts, oprn your web browser and navigate to `http://localhost:[PORT]`. This will direct you to the index page of this program.
 
-![Preview of groupie tracker index page](static/images/display1.png)
+![Preview of groupie tracker search bar index page](static/images/groupie-tracker-search-bar.png)
 
 - You can manoeuvre through our pages by clicking the links embedded in the navigation bar to gain access to them.
 
