@@ -10,12 +10,16 @@ import (
 )
 
 func main() {
-	if len(os.Args) < 2 {
+	if len(os.Args) > 2 {
 		fmt.Println("Usage: go run main.go [PORT]")
 		return
 	}
-
-	port := ":" + os.Args[1]
+	var port string
+	if len(os.Args) == 2 {
+		port = os.Args[1] 	
+	} else { 
+		port = "8080" 	
+	}
 	functions.LoadData()
 	http.HandleFunc("/", functions.Index)
 	http.HandleFunc("/artists", functions.Artists)
