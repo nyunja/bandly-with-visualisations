@@ -16,16 +16,16 @@ func main() {
 	}
 	var port string
 	if len(os.Args) == 2 {
-		port = os.Args[1] 	
+		port = ":"+os.Args[1] 	
 	} else { 
-		port = "8080" 	
+		port = ":8080" 	
 	}
 	functions.LoadData()
 	http.HandleFunc("/", functions.Index)
-	http.HandleFunc("/artists", functions.Artists)
+	// http.HandleFunc("/artists", functions.Artists)
 	http.HandleFunc("/about", functions.About)
 	http.HandleFunc("/artists/", functions.ArtistDetail)
-	http.HandleFunc("/concerts", functions.Concerts)
+	// http.HandleFunc("/concerts", functions.Concerts)
 	http.HandleFunc("/search", functions.Search)
 
 
