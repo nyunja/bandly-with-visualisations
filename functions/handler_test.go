@@ -6,6 +6,22 @@ import (
 	"testing"
 )
 
+func TestFetchData(t *testing.T) {
+	var artists []Artist
+	fetchData("https://groupietrackers.herokuapp.com/api/artists", &artists)
+	if artists[0].Name != "Queen" {
+		t.Errorf("fetch function returned wrong artists: expected %v got %v", "Queen", artists[0].Name)
+	}
+}
+func TestServeError(t *testing.T) {
+	// Create a response to our handler
+	w := httptest.NewRecorder()
+	ServeError(w, "Internal Server Error", http.StatusInternalServerError, "../templates/error.html")
+	// Check the status code
+	if status := w.Code; status != http.StatusInternalServerError {
+        t.Errorf("handler returned wrong status code: got %v expected %v", status, http.StatusInternalServerError)
+    }
+}
 func TestIndex(t *testing.T) {
 	testData()
 	// Create a request to pass to our handler
