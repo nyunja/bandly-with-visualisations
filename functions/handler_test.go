@@ -6,6 +6,26 @@ import (
 	"testing"
 )
 
+func TestIndex(t *testing.T) {
+	testData()
+	// Create a request to pass to our handler
+	req, err := http.NewRequest("GET", "/", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// Create a ResponseRecorder to record the response
+	resRecorder := httptest.NewRecorder()
+
+	// Call the handler function directly
+	Index(resRecorder, req, "../templates/index.html")
+
+	// Check the status code
+	if status := resRecorder.Code; status != http.StatusOK{
+		t.Errorf("handler returned wrong status code: got %v expected %v", status, http.StatusOK)
+	}
+}
+
 func TestArtistDetail(t *testing.T) {
 	testData()
 	// Create a request to pass to our handler
