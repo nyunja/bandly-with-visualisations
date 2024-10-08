@@ -140,17 +140,13 @@
                     }
                 });
                 results.forEach(result => {
-
                     const suggestion = document.createElement('a');
                     suggestion.href = `/artists/${result.ID}`;
                     suggestion.addEventListener('click', function () {
                         window.location.href = `/artists/${result.ID}`;
                     });
                     const trimmedName = result.Match;
-                    // const trimmedMembers = result.Members.join('<br>');
-                    // const trimmedLocation = result.Location.replace(/[-/]/g, ',').replace(/_/g, ' ').split(',').map(location => location.trim().charAt(0).toUpperCase() + location.trim().slice(1)).join('<br>');
                     suggestion.innerHTML = `<strong>${trimmedName}</strong><br>`;
-                    // suggestion.innerHTML = `<strong>${trimmedName}</strong><br>${trimmedMembers}<br>${trimmedLocation}`;
                     suggestionsBox.appendChild(suggestion);
                 });
             }
