@@ -79,14 +79,14 @@ func Index(w http.ResponseWriter, r *http.Request, path string) {
 // 	tmpl.Execute(w, dataRes)
 // }
 
-func About(w http.ResponseWriter, r *http.Request) {
+func About(w http.ResponseWriter, r *http.Request, path string) {
 	if r.URL.Path != "/about" {
 		ServeError(w, "Page not found", http.StatusNotFound)
 		return
 	}
 
 	if r.Method == http.MethodGet {
-		tmpl, err := template.ParseFiles("templates/about.html")
+		tmpl, err := template.ParseFiles(path)
 		if err != nil {
 			ServeError(w, "Internal server error", http.StatusInternalServerError)
 			return
