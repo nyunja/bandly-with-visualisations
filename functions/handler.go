@@ -23,7 +23,7 @@ type BandResponse struct {
 
 func Index(w http.ResponseWriter, r *http.Request, path string) {
 	if r.URL.Path != "/" {
-		ServeError(w, "Page not found", http.StatusNotFound)
+		ServeError(w, "Page not found", http.StatusNotFound, "templates/error.html")
 		return
 	}
 
@@ -34,7 +34,7 @@ func Index(w http.ResponseWriter, r *http.Request, path string) {
 	tmpl, err := template.ParseFiles(path)
 	if err != nil {
 		fmt.Println(err)
-		ServeError(w, "Internal server error", http.StatusInternalServerError)
+		ServeError(w, "Internal server error", http.StatusInternalServerError, "templates/error.html")
 		return
 	}
 
@@ -81,19 +81,19 @@ func Index(w http.ResponseWriter, r *http.Request, path string) {
 
 func About(w http.ResponseWriter, r *http.Request, path string) {
 	if r.URL.Path != "/about" {
-		ServeError(w, "Page not found", http.StatusNotFound)
+		ServeError(w, "Page not found", http.StatusNotFound, "templates/error.html")
 		return
 	}
 
 	if r.Method == http.MethodGet {
 		tmpl, err := template.ParseFiles(path)
 		if err != nil {
-			ServeError(w, "Internal server error", http.StatusInternalServerError)
+			ServeError(w, "Internal server error", http.StatusInternalServerError, "templates/error.html")
 			return
 		}
 		tmpl.Execute(w, nil)
 	} else {
-		ServeError(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+		ServeError(w, "Method Not Allowed", http.StatusMethodNotAllowed, "templates/error.html")
 	}
 }
 
@@ -138,20 +138,20 @@ func ArtistDetail(w http.ResponseWriter, r *http.Request, path string) {
 	idStr := strings.TrimPrefix(r.URL.Path, "/artists/")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
-		ServeError(w, "Invalid artist ID", http.StatusBadRequest)
+		ServeError(w, "Invalid artist ID", http.StatusBadRequest, "templates/error.html")
 		return
 	}
 
 	index := id - 1
 	if id < 1 || id > 52 {
-		ServeError(w, "Artist not found", http.StatusNotFound)
+		ServeError(w, "Artist not found", http.StatusNotFound, "templates/error.html")
 		return
 	}
 
 	// Load the artist detail template
 	tmpl, err := template.ParseFiles(path)
 	if err != nil {
-		ServeError(w, "Internal server error", http.StatusInternalServerError)
+		ServeError(w, "Internal server error", http.StatusInternalServerError, "templates/error.html")
 		return
 	}
 
@@ -256,25 +256,6 @@ func Search(w http.ResponseWriter, r *http.Request) {
 				result = SearchResult{}
 			}
 		}
-		// 	strings.Contains(strings.Join(lowerCaseMembers, " "), query) ||
-		// 	strings.Contains(strings.Join(locations.Index[i].Location, " "), query) ||
-		// 	strings.Contains(strings.Join(dates.Index[i].Date, " "), query) ||
-		// 	strings.Contains(fmt.Sprintf("%v", relations.Index[i].DateLocs), query) {
-
-		// 	result := SearchResult{
-		// 		ID:        artist.ID,
-		// 		Name:      artist.Name,
-		// 		Members:   artist.Members,
-		// 		FirstAlbum: artist.FirstAlbum,
-		// 		CreationDate: artist.CreationDate,
-		// 		Location:  strings.Join(locations.Index[i].Location, ", "),
-		// 		Dates:     strings.Join(dates.Index[i].Date, ", "),
-		// 		Relations: fmt.Sprintf("%v", relations.Index[i].DateLocs),
-		// 	}
-		// 	results = append(results, result)
-		// }
-		
-
 	}
 
 	// Return the search results as JSON
