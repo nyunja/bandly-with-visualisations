@@ -21,7 +21,7 @@ type BandResponse struct {
 	Band      BandDetails
 }
 
-func Index(w http.ResponseWriter, r *http.Request) {
+func Index(w http.ResponseWriter, r *http.Request, path string) {
 	if r.URL.Path != "/" {
 		ServeError(w, "Page not found", http.StatusNotFound)
 		return
@@ -31,7 +31,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("OK: ", http.StatusOK)
 	}
 
-	tmpl, err := template.ParseFiles("templates/index.html")
+	tmpl, err := template.ParseFiles(path)
 	if err != nil {
 		fmt.Println(err)
 		ServeError(w, "Internal server error", http.StatusInternalServerError)
@@ -50,34 +50,34 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, dataRes)
 }
 
-func Artists(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/artists" {
-		ServeError(w, "Page not found", http.StatusNotFound)
-		return
-	}
+// func Artists(w http.ResponseWriter, r *http.Request) {
+// 	if r.URL.Path != "/artists" {
+// 		ServeError(w, "Page not found", http.StatusNotFound)
+// 		return
+// 	}
 
-	if strings.ToUpper(r.Method) != http.MethodGet {
-		ServeError(w, "Method Not Allowed", http.StatusMethodNotAllowed)
-		return
-	}
+// 	if strings.ToUpper(r.Method) != http.MethodGet {
+// 		ServeError(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+// 		return
+// 	}
 
-	tmpl, err := template.ParseFiles("templates/artists.html")
-	if err != nil {
-		ServeError(w, "Internal server error", http.StatusInternalServerError)
-		return
-	}
+// 	tmpl, err := template.ParseFiles("templates/artists.html")
+// 	if err != nil {
+// 		ServeError(w, "Internal server error", http.StatusInternalServerError)
+// 		return
+// 	}
 
-	dataRes = Response{
-		pageTitle: "Artists",
-		Data: Data{
-			Artists:   artists,
-			Locations: locations,
-			Dates:     dates,
-			Relations: relations,
-		},
-	}
-	tmpl.Execute(w, dataRes)
-}
+// 	dataRes = Response{
+// 		pageTitle: "Artists",
+// 		Data: Data{
+// 			Artists:   artists,
+// 			Locations: locations,
+// 			Dates:     dates,
+// 			Relations: relations,
+// 		},
+// 	}
+// 	tmpl.Execute(w, dataRes)
+// }
 
 func About(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/about" {
@@ -97,35 +97,43 @@ func About(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func Concerts(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/concerts" {
-		ServeError(w, "Page not found", http.StatusNotFound)
-	}
+// func Concerts(w http.ResponseWriter, r *http.Request) {
+// 	if r.URL.Path != "/concerts" {
+// 		ServeError(w, "Page not found", http.StatusNotFound)
+// 	}
 
-	if strings.ToUpper(r.Method) != http.MethodGet {
-		ServeError(w, "Method not allowed", http.StatusMethodNotAllowed)
-	}
+// 	if strings.ToUpper(r.Method) != http.MethodGet {
+// 		ServeError(w, "Method not allowed", http.StatusMethodNotAllowed)
+// 	}
 
-	tmpl, err := template.ParseFiles("templates/concerts.html")
-	if err != nil {
-		ServeError(w, "Internal server error", http.StatusInternalServerError)
-		return
-	}
+// 	tmpl, err := template.ParseFiles("templates/concerts.html")
+// 	if err != nil {
+// 		ServeError(w, "Internal server error", http.StatusInternalServerError)
+// 		return
+// 	}
 
-	dataConcerts := Response{
-		pageTitle: "Concerts",
-		Data: Data{
-			Artists:   artists,
-			Locations: locations,
-			Dates:     dates,
-			Relations: relations,
-		},
-	}
+// 	dataConcerts := Response{
+// 		pageTitle: "Concerts",
+// 		Data: Data{
+// 			Artists:   artists,
+// 			Locations: locations,
+// 			Dates:     dates,
+// 			Relations: relations,
+// 		},
+// 	}
 
-	tmpl.Execute(w, dataConcerts)
-}
+// 	tmpl.Execute(w, dataConcerts)
+// }
 
-func ArtistDetail(w http.ResponseWriter, r *http.Request) {
+// func LoadTemplate(name string) (*template.Template,error) {
+// 	tmpl, err := template.ParseFiles("templates/"+name+".html")
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	return tmpl, nil
+// }
+
+func ArtistDetail(w http.ResponseWriter, r *http.Request, path string) {
 	// Extract the artist ID from the URL (e.g., /artists/{id})
 	idStr := strings.TrimPrefix(r.URL.Path, "/artists/")
 	id, err := strconv.Atoi(idStr)
@@ -141,7 +149,7 @@ func ArtistDetail(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Load the artist detail template
-	tmpl, err := template.ParseFiles("templates/band.html")
+	tmpl, err := template.ParseFiles(path)
 	if err != nil {
 		ServeError(w, "Internal server error", http.StatusInternalServerError)
 		return
