@@ -21,10 +21,14 @@ func main() {
 		port = ":8080" 	
 	}
 	functions.LoadData()
-	http.HandleFunc("/", functions.Index)
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request){
+		functions.Index(w, r, "templates/index.html")
+	})
 	// http.HandleFunc("/artists", functions.Artists)
 	http.HandleFunc("/about", functions.About)
-	http.HandleFunc("/artists/", functions.ArtistDetail)
+	http.HandleFunc("/artists/", func(w http.ResponseWriter, r *http.Request){
+		functions.ArtistDetail(w, r, "templates/band.html")
+	})
 	// http.HandleFunc("/concerts", functions.Concerts)
 	http.HandleFunc("/search", functions.Search)
 
