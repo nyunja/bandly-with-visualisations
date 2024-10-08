@@ -15,7 +15,7 @@ type Message struct {
 func ServeError(w http.ResponseWriter, errVal string, statusCode int, path string) {
 	tmpl, err := template.ParseFiles(path)
 	if err != nil {
-		log.Printf("error parsing files: %v\n", err)
+		// log.Printf("error parsing files: %v\n", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
