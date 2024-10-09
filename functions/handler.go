@@ -97,42 +97,6 @@ func About(w http.ResponseWriter, r *http.Request, path string) {
 	}
 }
 
-// func Concerts(w http.ResponseWriter, r *http.Request) {
-// 	if r.URL.Path != "/concerts" {
-// 		ServeError(w, "Page not found", http.StatusNotFound)
-// 	}
-
-// 	if strings.ToUpper(r.Method) != http.MethodGet {
-// 		ServeError(w, "Method not allowed", http.StatusMethodNotAllowed)
-// 	}
-
-// 	tmpl, err := template.ParseFiles("templates/concerts.html")
-// 	if err != nil {
-// 		ServeError(w, "Internal server error", http.StatusInternalServerError)
-// 		return
-// 	}
-
-// 	dataConcerts := Response{
-// 		pageTitle: "Concerts",
-// 		Data: Data{
-// 			Artists:   artists,
-// 			Locations: locations,
-// 			Dates:     dates,
-// 			Relations: relations,
-// 		},
-// 	}
-
-// 	tmpl.Execute(w, dataConcerts)
-// }
-
-// func LoadTemplate(name string) (*template.Template,error) {
-// 	tmpl, err := template.ParseFiles("templates/"+name+".html")
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	return tmpl, nil
-// }
-
 func ArtistDetail(w http.ResponseWriter, r *http.Request, path string) {
 	// Extract the artist ID from the URL (e.g., /artists/{id})
 	idStr := strings.TrimPrefix(r.URL.Path, "/artists/")
@@ -168,33 +132,6 @@ func ArtistDetail(w http.ResponseWriter, r *http.Request, path string) {
 
 	tmpl.Execute(w, data)
 }
-
-// func Search(w http.ResponseWriter, r *http.Request) {
-// 	query := strings.ToLower(r.URL.Query().Get("q"))
-
-// 	var results []Artist
-
-// 	for _, artist := range artists {
-// 		if strings.Contains(strings.ToLower(artist.Name), query) {
-// 			results = append(results, artist)
-// 		}
-// 	}
-
-// 	data := map[string]interface{}{
-// 		"Artists": results,
-// 	}
-
-// 	tmpl, err := template.ParseFiles("templates/search.html")
-// 	if err != nil {
-// 		http.Error(w, err.Error(), http.StatusInternalServerError)
-// 		return
-// 	}
-
-// 	err = tmpl.Execute(w, data)
-// 	if err != nil {
-// 		http.Error(w, err.Error(), http.StatusInternalServerError)
-// 	}
-// }
 
 // func FetchSuggestions(query string) ([]SearchResult, error) {
 // 	url := fmt.Sprintf("%s?q=%s", apiURL, query)
@@ -233,25 +170,6 @@ func ArtistDetail(w http.ResponseWriter, r *http.Request, path string) {
 
 func Search(w http.ResponseWriter, r *http.Request) {
 	query := strings.ToLower(r.URL.Query().Get("q"))
-
-	// if query == "" {
-	// 	http.Error(w, "Missing query parameters", http.StatusBadRequest)
-	// 	return
-	// }
-
-	// suggestions, err := FetchSuggestions(query)
-	// if err != nil {
-	// 	log.Printf("error fetching suggestions: %s", err.Error())
-	// 	http.Error(w, err.Error(), http.StatusInternalServerError)
-	// 	return
-	// }
-	// if len(suggestions) == 0 {
-	// 	http.NotFound(w, r)
-	// 	return
-	// }
-
-	// Return the search suggestions as JSON
-	// json.NewEncoder(w).Encode(suggestions)
 
 	var results []SearchResult
 
@@ -313,6 +231,6 @@ func Search(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Return the search results as JSON
-	w.Header().Set("Content-Type", "application/json")
+	// w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(results)
 }
