@@ -196,8 +196,62 @@ func ArtistDetail(w http.ResponseWriter, r *http.Request, path string) {
 // 	}
 // }
 
+// func FetchSuggestions(query string) ([]SearchResult, error) {
+// 	url := fmt.Sprintf("%s?q=%s", apiURL, query)
+// 	resp, err := http.Get(url)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	defer resp.Body.Close()
+
+// 	if resp.StatusCode != http.StatusOK {
+// 		return nil, fmt.Errorf("error fetching suggestions: %s", resp.Status)
+// 	}
+
+// 	var data struct {
+// 		Artists []Artist `json:"artists"`
+// 	}
+
+// 	if err := json.NewDecoder(resp.Body).Decode(&data); err != nil {
+// 		return nil, err
+// 	}
+
+// 	var suggestions []SearchResult
+
+// 	for _, artist := range data.Artists {
+// 		suggestions = append(suggestions, SearchResult{
+// 			ID:        artist.ID,
+// 			Name:      artist.Name,
+// 			Members:   artist.Members,
+// 			Location:  artist.Locations,
+// 			Dates:     artist.ConcertDates,
+// 			Relations: artist.Relations,
+// 		})
+// 	}
+// 	return suggestions, nil
+// }
+
 func Search(w http.ResponseWriter, r *http.Request) {
 	query := strings.ToLower(r.URL.Query().Get("q"))
+
+	// if query == "" {
+	// 	http.Error(w, "Missing query parameters", http.StatusBadRequest)
+	// 	return
+	// }
+
+	// suggestions, err := FetchSuggestions(query)
+	// if err != nil {
+	// 	log.Printf("error fetching suggestions: %s", err.Error())
+	// 	http.Error(w, err.Error(), http.StatusInternalServerError)
+	// 	return
+	// }
+	// if len(suggestions) == 0 {
+	// 	http.NotFound(w, r)
+	// 	return
+	// }
+
+	// Return the search suggestions as JSON
+	// json.NewEncoder(w).Encode(suggestions)
 
 	var results []SearchResult
 
@@ -249,7 +303,7 @@ func Search(w http.ResponseWriter, r *http.Request) {
 			if strings.Contains(location, query) {
 				result.ID = artist.ID
 				result.Name = artist.Name
-				result.Match = location+ " - " + artist.Name + "(Location)"
+				result.Match = location + " - " + artist.Name + "(Location)"
 				if result.ID > 0 {
 					results = append(results, result)
 				}

@@ -9,78 +9,54 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="/script/script.js" defer></script>
     <link rel="stylesheet" href="/static/style/search.css">
-    <title>Search Suggestions</title>
+    <title>Search {{.Artist.ID}}</title>
 </head>
 
 <body>
     <input type="text" id="search-input" placeholder="Search...">
-    <div id="suggestions"></div>
+    <div id="suggestions" style="display: none;"></div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const input = document.getElementById('search-input');
             const suggestionsBox = document.getElementById('suggestions');
 
-            async function fetchData() {
-                try {
-                    const response = await fetch('https://groupietrackers.herokuapp.com/api/artists');
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return await response.json();
-                } catch (error) {
-                    console.error('There was a problem with the fetch operation:', error);
-                    return [];
-                }
-            }
-
             input.addEventListener('input', async () => {
-                const query = input.value.toLowerCase();
+                const query = input.value;
                 if (!query) {
                     suggestionsBox.innerHTML = '';
                     suggestionsBox.style.display = 'none';
                     return;
                 }
 
-                const artistsData = await fetchData();
-                console.log('Artists data:', artistsData); // Add this line to log the artists data
+                try {
+                    const response = await fetch(`/search?q=${encodeURIComponent(query)}`);
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    const suggestions = await response.json();
 
-                const matches = artistsData.map(artist => {
-                    return {
-                        ...artist,
-                        Name: artist.Name.replace(/_/g, ' ').toUpperCase(),
-                        Members: artist.Members.map(member => member.replace(/_/g, ' ').toUpperCase()),
-                        City: artist.City.replace(/_/g, ' ').toUpperCase(),
-                        Country: artist.Country.replace(/_/g, ' ').toUpperCase()
-                    };
-                }).filter(artist =>
-                    artist.Name.toLowerCase().includes(query) ||
-                    artist.Members.some(member => member.toLowerCase().includes(query)) ||
-                    artist.City.toLowerCase().includes(query) ||
-                    artist.Country.toLowerCase().includes(query)
-                );
+                    suggestionsBox.innerHTML = suggestions.map(suggestion =>
+                        `<div class="suggestion-item">${suggestion.name} - Members: ${suggestion.members.join(', ')}</div>`
+                    ).join('');
 
-                console.log('Matches:', matches); // Add this line to log the filtered results
-
-                suggestionsBox.innerHTML = matches.map(match =>
-                    `<div class="suggestion-item">${match.Name} - ${match.Genre} - ${match.City}, ${match.Country}</div>`
-                ).join('');
-
-                if (matches.length > 0) {
-                    suggestionsBox.style.display = 'block';
-                } else {
-                    suggestionsBox.style.display = 'none';
-                }
-
-                document.querySelectorAll('.suggestion-item').forEach(item => {
-                    item.addEventListener('click', () => {
-                        input.value = item.textContent.split(' - ')[0];
-                        suggestionsBox.innerHTML = '';
+                    if (suggestions.length > 0) {
+                        suggestionsBox.style.display = 'block';
+                    } else {
                         suggestionsBox.style.display = 'none';
+                    }
+
+                    document.querySelectorAll('.suggestion-item').forEach(item => {
+                        item.addEventListener('click', () => {
+                            input.value = item.textContent.split(' - ')[0]; // Set artist name
+                            suggestionsBox.innerHTML = '';
+                            suggestionsBox.style.display = 'none';
+                        });
                     });
-                });
+                } catch (error) {
+                    console.error('Error fetching suggestions:', error);
+                }
             });
         });
     </script>

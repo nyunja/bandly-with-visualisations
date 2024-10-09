@@ -53,6 +53,41 @@
   --text-color: hsl(0, 0%, 35%);
   --body-color: hsl(0, 0%, 95%);
   --container-color: hsl(0, 0%, 100%);
+  --hover-color: hsl(0, 0%, 90%);
+  --active-color: hsl(0, 0%, 80%);
+  --focus-color: hsl(0, 0%, 70%);
+  --error-color: hsl(353, 100%, 50%);
+  --success-color: hsl(120, 100%, 40%);
+  --warning-color: hsl(45, 100%, 50%);
+  --bg-light: linear-gradient(135deg, #8e9094 0%, #607eae 100%);
+  --bg-dark: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%);
+  --text-light: #333;
+  --text-dark: #f0f0f0;
+  --card-light: rgba(255, 255, 255, 0.8);
+  --card-dark: rgba(0, 0, 0, 0.6);
+}
+
+body.light-mode {
+  font-family: var(--font-family);
+  background: linear-gradient(var(--bg-light));
+  color: var(--text-light);text-size-adjust: var(--fs-500);
+  text-decoration: none;
+  position: relative;
+  z-index: 999;
+  margin: 0;
+  padding: 0;
+}
+
+body.dark-mode {
+  font-family: var(--font-family);
+  background: linear-gradient(135deg, var(--clr-primary-700), var(--clr-secondary-500));
+  color: var(--text-dark);text-size-adjust: var(--fs-500);
+  text-size-adjust: var(--fs-500);
+  text-decoration: none;
+  position: relative;
+  z-index: 999;
+  margin: 0;
+  padding: 0;
 }
 
 * {
@@ -74,7 +109,7 @@ header, main, footer {
 }
 
 
-body {
+/* body {
     font-family: var(--font-family);
     background: linear-gradient(135deg, var(--clr-primary-700), var(--clr-secondary-500));
     color: var(--clr-text-300);
@@ -84,7 +119,7 @@ body {
     z-index: 999;
     margin: 0;
     padding: 0;
-}
+} */
 
 header {
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
@@ -165,6 +200,8 @@ img {
     place-items: center;
     margin-inline: 1.5rem;
     padding-block: 5rem;
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
   .card__article, .about-card, .social-media-card {
@@ -317,6 +354,8 @@ img {
 }
 
 .social-media-card {
+  display: flex;
+  justify-content: center;
   border: 2px solid #ddd;
   border-radius: 8px;
   padding: 10px;
@@ -340,12 +379,25 @@ img {
 }
 
 .social-media-card a {
+  color: inherit;
+  font-size: 1.5rem;
   text-decoration: none;
   color: #007bff;
 }
 
 .social-media-card a:hover {
   text-decoration: underline;
+}
+
+.mode-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 1000;
 }
 
   @property --angle{

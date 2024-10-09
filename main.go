@@ -34,6 +34,11 @@ func main() {
 	// http.HandleFunc("/concerts", functions.Concerts)
 	http.HandleFunc("/search", functions.Search)
 
+	server := &http.Server{
+		Addr:     port,
+		ErrorLog: log.New(os.Stderr, "", log.LstdFlags),
+		Handler:  nil,
+	}
 
 	staticDir := "./static/"
 	staticURL := "/static/"
@@ -41,7 +46,7 @@ func main() {
 	http.Handle(staticURL, http.StripPrefix(staticURL, fileServer))
 
 	log.Printf("Server started at http://localhost%s\n", port)
-	err := http.ListenAndServe(port, nil)
+	err := server.ListenAndServe()
 	if err != nil {
 		log.Fatalf("Server failed: %v", err)
 	}
