@@ -108,7 +108,17 @@
         //     });
         // });
 
-        document.getElementById('search-input').addEventListener('input', async () => {
+        // debounce to reduce api calls
+        function debounce(func, delay) {
+            let timeOutId;
+            return function (...args) {
+                clearTimeout(timeOutId);
+                timeOutId = setTimeout(() => func.apply(this, args), delay);
+            };
+        }
+
+        // Listen to user typing in search bar and send query to the backend
+        document.getElementById('search-input').addEventListener('input', debounce(async () => {
             const query = document.getElementById('search-input').value.toLowerCase();
             const artists = document.querySelectorAll('.card-title');
             const response = await fetch(`/search?q=${query}`);
@@ -150,7 +160,7 @@
                     suggestionsBox.appendChild(suggestion);
                 });
             }
-        });
+        }, 500));
 
         document.addEventListener('click', (event) => {
             if (!event.target.matches('#search')) {
