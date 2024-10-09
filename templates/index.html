@@ -80,33 +80,21 @@
         //     window.location.href = `/search?q=${query}`;
         // }
         document.getElementById('search-btn').addEventListener('click', function () {
-            const query = document.getElementById('search-input').value.toLowerCase();
-            const artists = document.querySelectorAll('.card-title');
+            suggestions.innerHTML = '';
+            document.getElementById('search-input').value = '';
+            // const query = document.getElementById('search-input').value.toLowerCase();
+            // const artists = document.querySelectorAll('.card-title');
 
-            artists.forEach(function (artist) {
-                const card = artist.closest('.card-item');
-                if (artist.textContent.toLowerCase().includes(query)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+            // artists.forEach(function (artist) {
+            //     const card = artist.closest('.card-item');
+            //     if (artist.textContent.toLowerCase().includes(query)) {
+            //         card.style.display = 'block';
+            //     } else {
+            //         card.style.display = 'none';
+            //     }
+            // });
         });
 
-        // document.getElementById('search-input').addEventListener('keyup', function () {
-        //     const query = this.value.toLowerCase();
-        //     const artists = document.querySelectorAll('.card-title');
-        //     artists.forEach(function (artist) {
-        //         const card = artist.closest('.card-item');
-        //         if (artist.textContent.toLowerCase().includes(query)) {
-        //             card.style.display = 'block';
-        //             card.classList.add('original-size');
-        //         } else {
-        //             card.style.display = 'none';
-        //             card.classList.remove('original-size');
-        //         }
-        //     });
-        // });
 
         // debounce to reduce api calls
         function debounce(func, delay) {
