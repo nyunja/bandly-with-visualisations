@@ -58,8 +58,14 @@ type Data struct {
 type BandDetails struct {
 	Artist   Artist
 	Location Location
-	Dates    Date
+	Dates Date
 	Relation Relation
+}
+
+type SearchResult struct {
+	ID int
+	Name string
+	Match string
 }
 
 var (
@@ -69,7 +75,7 @@ var (
 	relations Relations
 )
 
-var apiURL = "https://groupietrackers.herokuapp.com/api/"
+// var apiURL = "https://groupietrackers.herokuapp.com/api/"
 
 func fetchData(url string, target interface{}) error {
 	resp, err := http.Get(url)

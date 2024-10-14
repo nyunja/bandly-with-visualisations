@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/static/style/search.css">
+    <title>Search {{.Artist.ID}}</title>
+</head>
+
+<body>
+    <input type="text" id="search-input" placeholder="Search...">
+    <div id="suggestions" style="display: none;"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const input = document.getElementById('search-input');
+            const suggestionsBox = document.getElementById('suggestions');
+
+            input.addEventListener('input', async () => {
+                const query = input.value;
+                if (!query) {
+                    suggestionsBox.innerHTML = '';
+                    suggestionsBox.style.display = 'none';
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`/search?q=${encodeURIComponent(query)}`);
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    const suggestions = await response.json();
+
+                    suggestionsBox.innerHTML = suggestions.map(suggestion =>
+                        `<div class="suggestion-item">${suggestion.name} - Members: ${suggestion.members.join(', ')}</div>`
+                    ).join('');
+
+                    if (suggestions.length > 0) {
+                        suggestionsBox.style.display = 'block';
+                    } else {
+                        suggestionsBox.style.display = 'none';
+                    }
+
+                    document.querySelectorAll('.suggestion-item').forEach(item => {
+                        item.addEventListener('click', () => {
+                            input.value = item.textContent.split(' - ')[0]; // Set artist name
+                            suggestionsBox.innerHTML = '';
+                            suggestionsBox.style.display = 'none';
+                        });
+                    });
+                } catch (error) {
+                    console.error('Error fetching suggestions:', error);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

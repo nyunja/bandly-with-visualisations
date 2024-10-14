@@ -254,7 +254,7 @@ section {
     justify-content: center;
     align-items: center;
     min-height: auto;
-    background: #081b29;
+    /* background: #081b29; */
 }
 
 .member-container {

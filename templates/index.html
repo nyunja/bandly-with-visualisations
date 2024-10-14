@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="/script/script.js" defer></script>
-    <!-- <link rel="stylesheet" href="/static/style/style.css"> -->
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../static/style/artist.css">
     <title>Groupie Tracker</title>
 </head>
+
 <body>
     <header>
         <div class="container">
@@ -18,12 +21,13 @@
             </div>
             <h1>Groupie Tracker</h1>
             <nav>
-                <a href="/about" action="/about" method="get" class="cta-button fade-in-up"><i class="fa fa-fw fa-info"></i>About Us</a>
+                <a href="/about" action="/about" method="get" class="cta-button fade-in-up"><i
+                        class="fa fa-fw fa-info"></i>About Us</a>
             </nav>
             <div class="search-container">
-                <input type="text" id="search-input" placeholder="Search ...">
-                <button type="button" id="search-btn">Search</button>
-                <div id="suggestions" class="suggestions"></div>
+                <input type="text" id="search-input" placeholder="Search ..." autocomplete="off">
+                <div id="suggestions"></div>
+                <button type="button" id="search-btn"><i class="fa-sharp-duotone fa-solid fa-magnifying-glass"></i></button>
             </div>
         </div>
     </header>
@@ -34,28 +38,32 @@
             <p class="fade-in-up"></p>
         </section>
         <hr>
+        <div id="no-results"></div>
 
         <section class="view">
             <ul class="cards">
                 {{ range $artist := .Data.Artists }}
-                <li class="card-item">
+                <li class="card-item .original-size">
                     <a href="/artists/{{$artist.ID}}" class="card">
                         <img src="{{$artist.Image}}" alt="Band profile picture" class="card-image">
                         <div class="card-overlay">
                             <div class="card-details">
-                                <svg class="card-arc" xmlns="https://www.w3.org/2000/svg"><path/></svg>
+                                <svg class="card-arc" xmlns="https://www.w3.org/2000/svg">
+                                    <path />
+                                </svg>
                                 <img src="{{$artist.Image}}" alt="Band profile image" class="card-thumbnail">
                                 <div class="card-detail-text">
                                     <h3 class="card-title">{{$artist.Name}}</h3>
                                     <span class="card-creation-date">Started in {{$artist.CreationDate}}</span>
                                 </div>
                             </div>
-                            <p class="card-description">{{$artist.Name}} produced their first album in {{$artist.FirstAlbum}}.</p>
+                            <p class="card-description">{{$artist.Name}} produced their first album in
+                                {{$artist.FirstAlbum}}.</p>
                         </div>
                     </a>
                 </li>
                 {{end}}
-            </ul>        
+            </ul>
         </section>
         <hr>
     </main>
@@ -65,35 +73,98 @@
             <p>&copy; 2024 Groupie Tracker. All rights reserved.</p>
         </div>
     </footer>
-    
+
     <script>
-        document.getElementById('search-btn').addEventListener('click', function() {
-            const query = document.getElementById('search-input').value.toLowerCase();
-            const artists = document.querySelectorAll('.card-title');
-            
-            artists.forEach(function(artist) {
-                const card = artist.closest('.card-item');
-                if (artist.textContent.toLowerCase().includes(query)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+        document.getElementById('search-btn').addEventListener('click', function () {
+            suggestions.innerHTML = '';
+            document.getElementById('search-input').value = '';
         });
 
-        document.getElementById('search-input').addEventListener('keyup', function() {
-            const query = this.value.toLowerCase();
-            const artists = document.querySelectorAll('.card-title');
 
-            artists.forEach(function(artist) {
-                const card = artist.closest('.card-item');
-                if (artist.textContent.toLowerCase().includes(query)) {
-                    card.style.display = 'block';
-                } else {
+        // debounce to reduce api calls
+        function debounce(func, delay) {
+            let timeOutId;
+            return function (...args) {
+                clearTimeout(timeOutId);
+                timeOutId = setTimeout(() => func.apply(this, args), delay);
+            };
+        }
+
+        // Listen to user typing in search bar and send query to the backend
+        document.getElementById('search-input').addEventListener('input', debounce(async () => {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const artists = document.querySelectorAll('.card-title');
+            const response = await fetch(`/search?q=${query}`);
+            const results = await response.json();
+            console.log(results)
+            const suggestionsBox = document.getElementById('suggestions');
+            const noResults = document.getElementById('no-results')
+            if (results === null) {
+                suggestionsBox.innerHTML = '';
+                artists.forEach(artist => {
+                    const card = artist.closest('.card-item');
                     card.style.display = 'none';
-                }
-            });
+                    card.classList.add('original-size')
+                });
+                suggestionsBox.innerHTML = `<a><strong>No results found for "${query}".</strong></a>`;
+                noResults.style.display = 'block'
+                noResults.innerHTML = `<p>No results found for that query.</p>`
+                return;
+            };
+
+            if (query === '') {
+                noResults.style.display = 'none'
+                suggestionsBox.innerHTML = '';
+                artists.forEach(artist => {
+                    const card = artist.closest('.card-item');
+                    card.style.display = 'block';
+                    card.classList.add('original-size')
+                });
+            } else {
+                noResults.style.display = 'none'
+                suggestionsBox.innerHTML = '';
+                const resultNames = results.map(result => result.Name.toLowerCase());
+
+                artists.forEach(artist => {
+                    const card = artist.closest('.card-item');
+                    const artistName = artist.textContent.toLowerCase();
+                    if (resultNames.includes(artistName)) {
+                        card.style.display = 'block'; // Show the matching artist
+                        card.classList.add('original-size');
+                    } else {
+                        card.style.display = 'none'; // Hide the non-matching artist
+                        card.classList.remove('original-size');
+                    }
+                });
+                results.forEach(result => {
+                    const suggestion = document.createElement('a');
+                    suggestion.href = `/artists/${result.ID}`;
+                    suggestion.addEventListener('click', function () {
+                        window.location.href = `/artists/${result.ID}`;
+                    });
+                    const trimmedName = result.Match;
+                    suggestion.innerHTML = `<strong>${trimmedName}</strong><br>`;
+                    suggestionsBox.appendChild(suggestion);
+                });
+            }
+            
+        }, 500));
+
+        document.addEventListener('click', (event) => {
+            if (!event.target.matches('#search')) {
+                suggestions.innerHTML = '';
+            }
+        });
+
+        // page navigation using buttons(on up/down keystrokes)
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowUp') {
+                window.scrollBy(0, -100); // scrolls by 100 pixels
+            } else if (event.key === 'ArrowDown') {
+                window.scrollBy(0, 100); // scrolls by 100 pixels
+            }
         });
     </script>
 </body>
+
 </html>
