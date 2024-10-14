@@ -39,6 +39,7 @@
             <p class="fade-in-up"></p>
         </section>
         <hr>
+        <div id="no-results"></div>
 
         <section class="view">
             <ul class="cards">
@@ -111,10 +112,24 @@
             const artists = document.querySelectorAll('.card-title');
             const response = await fetch(`/search?q=${query}`);
             const results = await response.json();
-
+            console.log(results)
             const suggestionsBox = document.getElementById('suggestions');
+            const noResults = document.getElementById('no-results')
+            if (results === null) {
+                suggestionsBox.innerHTML = '';
+                artists.forEach(artist => {
+                    const card = artist.closest('.card-item');
+                    card.style.display = 'none';
+                    card.classList.add('original-size')
+                });
+                suggestionsBox.innerHTML = `<a><strong>No results found for "${query}".</strong></a>`;
+                noResults.style.display = 'block'
+                noResults.innerHTML = `<p>No results found for that query.</p>`
+                return;
+            };
 
             if (query === '') {
+                noResults.style.display = 'none'
                 suggestionsBox.innerHTML = '';
                 artists.forEach(artist => {
                     const card = artist.closest('.card-item');
@@ -122,7 +137,7 @@
                     card.classList.add('original-size')
                 });
             } else {
-
+                noResults.style.display = 'none'
                 suggestionsBox.innerHTML = '';
                 const resultNames = results.map(result => result.Name.toLowerCase());
 
@@ -148,6 +163,7 @@
                     suggestionsBox.appendChild(suggestion);
                 });
             }
+            
         }, 500));
 
         document.addEventListener('click', (event) => {
