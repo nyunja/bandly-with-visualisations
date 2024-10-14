@@ -28,7 +28,7 @@ To build and run this project, the requirements include:
 - To get access to the program, you need to clone the repository from Gitea.
 
 ```bash
-    git clone https://learn.zone01kisumu.ke/git/jamos/groupie-trackersearchbar.git
+    git clone https://learn.zone01kisumu.ke/git/jamos/groupie-tracker-search-bar.git
 ```
 
 ### Switch to the main directory
@@ -42,6 +42,10 @@ To build and run this project, the requirements include:
 ### Running the project
 
 - Open the terminal and run the following command:
+```bash
+    go run .
+```
+OR
 
 ```bash
     go run . [PORT]
@@ -82,4 +86,4 @@ This program is authored by:
 
 ## License
 
-This project is licensed under the MIT - see the [LICENSE](https://learn.zone01kisumu.ke/git/coketch/groupie-tracker/src/branch/master/LICENSE) for details.
+This project is licensed under the MIT - see the [LICENSE](https://learn.zone01kisumu.ke/git/jamos/groupie-tracker-search-bar/src/branch/master/LICENSE) for details.
