@@ -254,6 +254,17 @@ h2 {
   }
 }
 
+#no-results {
+  display: flex;
+  margin-top: 2em;
+  justify-content: center;
+  align-items: center;
+  max-height: 100vh;
+  font-size: 2rem;
+  color: #d9d9d9;
+  text-align: center;
+}
+
 /* .card-details {
   padding: 15px;
 } */
