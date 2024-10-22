@@ -81,8 +81,8 @@ func TestLoadData(t *testing.T) {
 	// Call LoadData and verify that no error occurs
 	LoadData()
 
-	// // Validate that artists were loaded successfully
-	// if len(artists) != 1 || artists[0].Name != mockArtists[0].Name {
-	// 	t.Errorf("Expected artist name %s, but got %s", mockArtists[0].Name, artists[0].Name)
-	// }
+	// Validate that artists were loaded successfully
+	if artists[0].Name != mockArtists[0].Name {
+		t.Errorf("Expected artist name %s, but got %s", mockArtists[0].Name, artists[0].Name)
+	}
 }

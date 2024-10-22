@@ -75,7 +75,7 @@ var (
 	relations Relations
 )
 
-// var apiURL = "https://groupietrackers.herokuapp.com/api/"
+var apiURL = "https://groupietrackers.herokuapp.com/api/"
 
 func fetchData(url string, target interface{}) error {
 	resp, err := http.Get(url)
